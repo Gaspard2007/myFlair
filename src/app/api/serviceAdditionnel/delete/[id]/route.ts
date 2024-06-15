@@ -1,14 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: NextRequest, res: NextResponse) {
   if (req.method === 'DELETE') {
     const url = req.url;
     console.log(url)
     const segments = url?.split('/').filter(Boolean);
 
-    const idService = 'clxevgydj000b1vl2rwusd1iw'
+    const idService = 'clxf0o5he0005s445likmkc4q'
     console.log(idService)
 
     try {
@@ -26,7 +25,7 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
     }
   } else {
     // Réponse pour les méthodes non autorisées
-    res.setHeader('Allow', ['DELETE']);
+   
     return NextResponse.json({ error: `Method ${req.method} Not Allowed` }, { status: 405 });
   }
 }
