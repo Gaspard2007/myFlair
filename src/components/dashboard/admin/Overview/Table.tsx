@@ -36,8 +36,7 @@ export default function OverviewTable() {
           <TableHead className="text-right">Quantité</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        
+      <TableBody>       
       </TableBody>
       <TableFooter>
         <TableRow>
