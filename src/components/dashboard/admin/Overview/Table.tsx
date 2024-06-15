@@ -14,18 +14,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { getAllAdditionalServicesBySales } from '@/data/dashboard/admin';
 import { AdditionalService } from '@prisma/client';
 
 export default function OverviewTable() {
   const [additionalServices, setAdditionalServices] = useState<
     AdditionalService[]
   >([]);
-
-  useEffect(() => {
-    (async () =>
-      setAdditionalServices(await getAllAdditionalServicesBySales()))();
-  });
 
   return (
     <Table>
