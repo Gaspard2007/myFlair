@@ -37,21 +37,13 @@ export default function OverviewTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {additionalServices.map((additionalService, index) => (
-          <TableRow key={additionalService.id}>
-            <TableCell>{index + 1}</TableCell>
-            <TableCell>{additionalService.title}</TableCell>
-            <TableCell className="text-right">
-              {additionalService.sales}
-            </TableCell>
-          </TableRow>
-        ))}
+        
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell colSpan={2}>Total</TableCell>
           <TableCell className="text-right">
-            {additionalServices.reduce((a, b) => a + b.sales, 0)}
+            
           </TableCell>
         </TableRow>
       </TableFooter>
