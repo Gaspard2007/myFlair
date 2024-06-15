@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import ReactQuill from 'react-quill';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import DisplayServices from './displayData/page';
 
 interface Service {
   image: string;
@@ -19,6 +20,9 @@ interface Service {
   description: string;
   price: number;
   type: string;
+  sales: number;
+  quantity: number;
+  [key: string]: string | boolean | number | undefined;
 }
 
 const AddService = () => {
@@ -32,6 +36,8 @@ const AddService = () => {
     description: '',
     price: 0,
     type:'',
+    sales:0,
+    quantity: 0,
   });
   const [images, setImages] = useState<File[]>([]);
 
@@ -84,15 +90,19 @@ const AddService = () => {
     }
   };
 
+  const handleTypeChange = (value: string) => {
+    handleServiceChange('type', value);
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post('', service, {
+      const response = await axios.post('/api/serviceAdditionnel/create', service, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         toast.success('Service ajouté avec succès');
         setTimeout(() => {
           router.push('/dashboard/professional');
@@ -159,10 +169,10 @@ const AddService = () => {
                       <br />
                       <br />
                       <Input
-                      className='rounded outline-none'
+                        className='rounded outline-none'
                         type='number'
-                        value={service.type}
-                        onChange={(e) => handleServiceChange('type', e.target.value)}
+                        value={service.price}
+                        onChange={(e) => handleServiceChange('price', e.target.value)}
                         placeholder='Exemple: 25'
                         required
                       />
@@ -170,25 +180,25 @@ const AddService = () => {
                       <label>Type de location</label>
                       <br />
                       <br />
-                      <Select>
+                      <Select onValueChange={handleTypeChange}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Selectionner un type" />
+                          <SelectValue placeholder="Sélectionner un type" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectGroup>
+                          <SelectGroup >
                             <SelectLabel>Type</SelectLabel>
-                            <SelectItem value="day">par Jours</SelectItem>
-                            <SelectItem value="banana">par Pièces</SelectItem>
-                            <SelectItem value="blueberry">par Page</SelectItem>   
+                            <SelectItem value="day">par Jour</SelectItem>
+                            <SelectItem value="piece">par Pièce</SelectItem>
+                            <SelectItem value="page">par Page</SelectItem>   
                           </SelectGroup>
                         </SelectContent>
                       </Select>
                       <br />
                       <label>Stocks</label>
                       <Input
-                      type="number"
-                      onChange={(e) => handleServiceChange('type', e.target.value)}
-                      required
+                        type="number"
+                        onChange={(e) => handleServiceChange('quantity', e.target.value)}
+                        required
                       />
                       <div>
                         <label>Description</label>
@@ -256,9 +266,12 @@ const AddService = () => {
                 </DialogHeader>
               </DialogContent>
             </Dialog>
+            
           </div>
+          <DisplayServices/>
         </div>
       </TabsContent>
+      
     </div>
   );
 };

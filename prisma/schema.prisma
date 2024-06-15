@@ -8,11 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum AdditionalServiceType {
-  PER_DAY
-  PER_PAGE
-  PER_PIECE
-}
 
 enum SubscriptionArgumentType {
   NEGATIVE
@@ -106,11 +101,11 @@ model AdditionalService {
   title       String
   description String
   price       Int
-  sales       Int
+  sales       Int?
   quantity    Int
-  type        AdditionalServiceType
+  type        String
   createdAt   DateTime              @default(now())
-  updatedAt   DateTime?             @updatedAt
+  updatedAt   DateTime              @updatedAt
 }
 
 model BusinessBooster {
