@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(req, res) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    res.setHeader('Cache-Control', 'no-store, max-age=0')
+   
     const postes = await prisma.post.findMany();
     console.log('post from database:', postes);
     return new Response(JSON.stringify(postes), { status: 200 });
