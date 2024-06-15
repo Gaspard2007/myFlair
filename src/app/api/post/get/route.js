@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(req, res) {
   try {
+    res.setHeader('Cache-Control', 'no-store, max-age=0')
     const postes = await prisma.post.findMany();
     console.log('post from database:', postes);
     return new Response(JSON.stringify(postes), { status: 200 });
