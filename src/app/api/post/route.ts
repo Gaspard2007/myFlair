@@ -1,8 +1,6 @@
 // src/app/api/post/route.ts
+import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,3 +18,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Erreur lors de la création du post' }, { status: 500 });
   }
 }
+export const runtime = 'experimental-edge';
